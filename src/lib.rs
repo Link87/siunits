@@ -4,4 +4,4 @@
 
 pub mod dim;
 pub mod si;
-pub mod units;
+pub mod unit;

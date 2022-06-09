@@ -1,6 +1,6 @@
 use std::ops::{Add, Sub};
 
-#[derive(Debug, Copy, Clone, Default, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Dim {
     s: i64,
     m: i64,
@@ -21,6 +21,20 @@ impl Dim {
             k,
             mol,
             cd,
+        }
+    }
+}
+
+impl const Default for Dim {
+    fn default() -> Self {
+        Dim {
+            s: 0,
+            m: 0,
+            kg: 0,
+            a: 0,
+            k: 0,
+            mol: 0,
+            cd: 0,
         }
     }
 }

@@ -1,25 +1,31 @@
 use std::ops::{Add, Mul};
 
-use crate::dim::Dim;
+use crate::unit::Unit;
 
 #[derive(Debug)]
-pub struct Si<V, const D: Dim>(pub V);
+pub struct Si<V, const U: Unit>(pub V);
 
-impl<V: Add<Output = V>, const D: Dim> Add for Si<V, D> {
-    type Output = Si<V, D>;
-
-    fn add(self, other: Self) -> Self::Output {
-        Si::<V, D>(self.0 + other.0)
+impl<V, const U: Unit> Si<V, U> {
+    pub fn num(self) -> V {
+        self.0
     }
 }
 
-impl<V: Mul<Output = V>, const DL: Dim, const DR: Dim> Mul<Si<V, DR>> for Si<V, DL>
-where
-    Si<V, { DL + DR }>: Sized,
-{
-    type Output = Si<V, { DL + DR }>;
+impl<V: Add<Output = V>, const U: Unit> Add for Si<V, U> {
+    type Output = Si<V, U>;
 
-    fn mul(self, other: Si<V, DR>) -> Self::Output {
-        Si::<V, { DL + DR }>(self.0 * other.0)
+    fn add(self, other: Self) -> Self::Output {
+        Si::<V, U>(self.0 + other.0)
+    }
+}
+
+impl<V: Mul<Output = V>, const UL: Unit, const UR: Unit> Mul<Si<V, UR>> for Si<V, UL>
+where
+    Si<V, { UL + UR }>: Sized,
+{
+    type Output = Si<V, { UL + UR }>;
+
+    fn mul(self, other: Si<V, UR>) -> Self::Output {
+        Si::<V, { UL + UR }>(self.0 * other.0)
     }
 }

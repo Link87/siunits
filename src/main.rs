@@ -1,7 +1,7 @@
 #![feature(generic_const_exprs)]
 
 use siunits::si::Si;
-use siunits::units::*;
+use siunits::unit::*;
 
 fn main() {
     println!(
