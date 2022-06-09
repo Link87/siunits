@@ -1,6 +1,6 @@
 use crate::dim::Dim;
 
-use std::ops::{Add, Sub};
+use core::ops::{Add, Sub};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Unit {
