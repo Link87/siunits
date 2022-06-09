@@ -6,6 +6,7 @@ use core::hash::Hash;
 pub struct Si<V = f64, const U: Unit = { Unit::default() }>(pub(crate) V);
 
 impl<V> Si<V> {
+    #[must_use]
     pub const fn new<const U: Unit>(value: V) -> Si<V, U> {
         Si::<V, U>(value)
     }

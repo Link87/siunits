@@ -12,6 +12,7 @@ pub struct Dim {
 }
 
 impl Dim {
+    #[must_use]
     pub const fn new(s: i64, m: i64, kg: i64, a: i64, k: i64, mol: i64, cd: i64) -> Dim {
         Dim {
             s,
@@ -25,6 +26,8 @@ impl Dim {
     }
 }
 
+// Clippy does not recognise const impls.
+#[allow(clippy::derivable_impls)]
 impl const Default for Dim {
     fn default() -> Self {
         Dim {

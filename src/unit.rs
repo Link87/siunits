@@ -10,6 +10,8 @@ pub struct Unit {
 
 impl Unit {}
 
+// Clippy does not recognise const impls.
+#[allow(clippy::derivable_impls)]
 impl const Default for Unit {
     fn default() -> Self {
         Unit {
