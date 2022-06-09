@@ -1,5 +1,7 @@
+use core::cmp::Ordering;
 use core::ops::{
-    Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Rem, RemAssign, Sub, SubAssign, Shl, Shr, ShlAssign, ShrAssign, BitAnd, BitOr, BitXor, BitAndAssign, BitOrAssign, BitXorAssign,
+    Add, AddAssign, BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Div, DivAssign,
+    Mul, MulAssign, Neg, Rem, RemAssign, Shl, ShlAssign, Shr, ShrAssign, Sub, SubAssign,
 };
 
 use crate::si::Si;
@@ -166,5 +168,56 @@ impl<VL: BitXor<VR, Output = O>, VR, O, const U: Unit> BitXor<Si<VR, U>> for Si<
 impl<V: BitXorAssign<VR>, VR, const U: Unit> BitXorAssign<Si<VR, U>> for Si<V, U> {
     fn bitxor_assign(&mut self, other: Si<VR, U>) -> () {
         (*self).0 ^= other.0;
+    }
+}
+
+impl<VL: PartialEq<VR>, VR, const U: Unit> PartialEq<Si<VR, U>> for Si<VL, U> {
+    fn eq(&self, other: &Si<VR, U>) -> bool {
+        self.0 == other.0
+    }
+}
+
+impl<V: Eq, const U: Unit> Eq for Si<V, U> {}
+
+impl<VL: PartialOrd<VR>, VR, const U: Unit> PartialOrd<Si<VR, U>> for Si<VL, U> {
+    fn partial_cmp(&self, other: &Si<VR, U>) -> Option<Ordering> {
+        VL::partial_cmp(&self.0, &other.0)
+    }
+
+    fn lt(&self, other: &Si<VR, U>) -> bool {
+        VL::lt(&self.0, &other.0)
+    }
+
+    fn le(&self, other: &Si<VR, U>) -> bool {
+        VL::le(&self.0, &other.0)
+    }
+
+    fn gt(&self, other: &Si<VR, U>) -> bool {
+        VL::gt(&self.0, &other.0)
+    }
+
+    fn ge(&self, other: &Si<VR, U>) -> bool {
+        VL::ge(&self.0, &other.0)
+    }
+}
+
+impl<V: Ord, const U: Unit> Ord for Si<V, U> {
+    fn cmp(&self, other: &Self) -> Ordering {
+        V::cmp(&self.0, &other.0)
+    }
+
+    fn max(self, other: Self) -> Self {
+        Self(V::max(self.0, other.0))
+    }
+
+    fn min(self, other: Self) -> Self {
+        Self(V::min(self.0, other.0))
+    }
+
+    fn clamp(self, min: Self, max: Self) -> Self
+    where
+        Self: Sized,
+    {
+        Self(V::clamp(self.0, min.0, max.0))
     }
 }
