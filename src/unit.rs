@@ -36,6 +36,12 @@ impl const Sub for Unit {
     }
 }
 
+pub const METER: Unit = Unit {
+    dim: Dim::new(0, 1, 0, 0, 0, 0, 0),
+};
 pub const NEWTON: Unit = Unit {
     dim: Dim::new(-2, 1, 1, 0, 0, 0, 0),
+};
+pub const JOULE: Unit = Unit {
+    dim: Dim::new(-2, 2, 1, 0, 0, 0, 0),
 };

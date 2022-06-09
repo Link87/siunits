@@ -6,26 +6,32 @@ use siunits::unit::*;
 fn main() {
     println!(
         "{:?}",
-        (Si::<f64, NEWTON>(3.0) + Si::<f64, NEWTON>(3.0)).num()
+        (Si::new::<NEWTON>(3.0) + Si::new::<NEWTON>(3.0)).num()
     );
     println!(
         "{:?}",
-        (Si::<f64, NEWTON>(3.0) * Si::<f64, NEWTON>(3.0)).num()
+        (Si::new::<NEWTON>(3.0) * Si::new::<NEWTON>(3.0)).num()
     );
-    println!("{:?}", (Si::<i64, NEWTON>(10) % Si::<i64, NEWTON>(3)).num());
-    println!("{:?}", (Si::<i64, NEWTON>(128) << 3).num());
+    println!("{:?}", (Si::new::<NEWTON>(10) % Si::new::<NEWTON>(3)).num());
+    println!("{:?}", (Si::new::<NEWTON>(128) << 3).num());
 
     // TODO allow this:
-    // needs to swap arguments and implement from
-    // let val: Si<NEWTON> = 3.0;
-
-    let mut val: Si = Si(3.0);
-    val *= Si(5.832);
-    println!("{:?}", val);
+    // needs to swap arguments
+    // let val: Si<NEWTON> = Si::from(3.0)
+    let mut val: Si = Si::from(3.0);
 
     // Expect compiler error:
+    // val *= Si::new::<NEWTON>(5.832);
+    val *= Si::new(5.832);
+    println!("{:?}", val);
+
     // val %= Si::<f64, NEWTON>(4.0);
 
-    val %= Si(4.0);
+    val %= Si::new(4.0);
+    println!("{:?}", val);
+
+    let mut val = Si::new::<METER>(27.0) * Si::new::<NEWTON>(5000.0);
+    println!("{:?}", val);
+    val += Si::new::<JOULE>(14.98 * 1000.0);
     println!("{:?}", val);
 }
