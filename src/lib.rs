@@ -9,3 +9,6 @@ pub mod dim;
 pub mod ops;
 pub mod si;
 pub mod unit;
+
+#[cfg(test)]
+mod tests;

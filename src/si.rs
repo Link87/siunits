@@ -2,8 +2,11 @@ use crate::unit::Unit;
 
 use core::hash::Hash;
 
-#[derive(Debug, Default, Hash)]
+#[repr(transparent)]
+#[derive(Debug, Default, Clone, Hash)]
 pub struct Si<V = f64, const U: Unit = { Unit::default() }>(pub(crate) V);
+
+impl<V: Copy> Copy for Si<V> {}
 
 impl<V> Si<V> {
     #[must_use]
@@ -13,8 +16,15 @@ impl<V> Si<V> {
 }
 
 impl<V, const U: Unit> Si<V, U> {
+    pub fn extract(self) -> V {
+        self.0
+    }
+}
+
+impl<V, const U: Unit> Si<V, U>
+where V: Copy {
     // Allow reference for copy values
-    pub fn num(self) -> V {
+    pub fn val(&self) -> V {
         self.0
     }
 }
