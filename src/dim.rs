@@ -27,7 +27,6 @@ impl Dim {
 }
 
 // Clippy does not recognise const impls.
-#[allow(clippy::derivable_impls)]
 impl const Default for Dim {
     fn default() -> Self {
         Dim {

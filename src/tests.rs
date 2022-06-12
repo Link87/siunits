@@ -34,7 +34,7 @@ fn assign_ops() {
 
     let mut val = 3.0;
     val *= 5.832;
-    
+
     assert_eq!(val_si.val(), val);
 }
 
@@ -43,7 +43,7 @@ fn rem_assign() {
     let mut val_si: Si = Si::from(17.23412);
     // compiler error expected: val %= Si::<f64, NEWTON>(4.0);
     val_si %= Si::new(4.0);
-    
+
     let mut val = 17.23412;
     val %= 4.0;
 
@@ -60,10 +60,8 @@ fn dim_change() {
 
 #[test]
 fn creation() {
-
     panic!("not implemented yet");
     // TODO allow this:
     // needs to swap arguments
     // let val: Si<NEWTON> = Si::from(3.0)
-
 }

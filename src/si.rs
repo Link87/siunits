@@ -22,7 +22,9 @@ impl<V, const U: Unit> Si<V, U> {
 }
 
 impl<V, const U: Unit> Si<V, U>
-where V: Copy {
+where
+    V: Copy,
+{
     // Allow reference for copy values
     pub fn val(&self) -> V {
         self.0
